@@ -1,0 +1,214 @@
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-top: #0f0c29;
+  --bg-mid: #302b63;
+  --bg-bottom: #24243e;
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.18);
+  --text-primary: #ffffff;
+  --text-secondary: #b8b8d1;
+  --accent: #00d4ff;
+  --accent-soft: rgba(0, 212, 255, 0.25);
+  --shadow: rgba(0, 0, 0, 0.35);
+  --radius: 28px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: linear-gradient(160deg, var(--bg-top), var(--bg-mid), var(--bg-bottom));
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
+  color: var(--text-primary);
+  overflow: hidden;
+  padding: 20px;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Glass Card */
+.clock-card {
+  position: relative;
+  width: min(560px, 92vw);
+  padding: clamp(32px, 6vw, 56px);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow:
+    0 24px 60px var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clock-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 32px 70px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* Ambient Glow */
+.glow {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  width: 220px;
+  height: 220px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Header */
+.clock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.format-toggle {
+  min-width: 48px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.format-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.format-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Time */
+.time-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(4px, 1.5vw, 12px);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.digit {
+  font-size: clamp(4rem, 16vw, 8.5rem);
+  font-weight: 200;
+  letter-spacing: -0.04em;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+}
+
+.seconds {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.separator {
+  font-size: clamp(3.2rem, 12vw, 6.5rem);
+  font-weight: 200;
+  color: var(--text-secondary);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.ampm {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-left: 6px;
+}
+
+.ampm.hidden {
+  display: none;
+}
+
+/* Date */
+.date-display {
+  margin-top: 28px;
+}
+
+.date-display p {
+  margin: 6px 0;
+}
+
+#day-name {
+  font-size: clamp(1.2rem, 4vw, 1.7rem);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+#full-date {
+  font-size: clamp(0.95rem, 3vw, 1.15rem);
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* Footer */
+.timezone {
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid var(--card-border);
+}
+
+.timezone span {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
+  .separator {
+    animation: none;
+  }
+  .clock-card,
+  .format-toggle {
+    transition: none;
+  }
+}

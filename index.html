@@ -3,10 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>First Page</title>
+  <title>Clock App</title>
+  <link rel="stylesheet" href="styles/styles.css">
+  <script defer src="./scripts/app.js"></script>
 </head>
 <body>
-  <h1>Hello World!
-  </h1>
+  <main class="clock-card">
+    <div class="glow"></div>
+
+    <header class="clock-header">
+      <span class="label">Current Time</span>
+      <button id="format-toggle" class="format-toggle" aria-label="Toggle 12 or 24 hour format">
+        24H
+      </button>
+    </header>
+
+    <section class="time-display" aria-live="polite">
+      <span id="hours" class="digit">00</span>
+      <span class="separator">:</span>
+      <span id="minutes" class="digit">00</span>
+      <span class="separator">:</span>
+      <span id="seconds" class="digit seconds">00</span>
+      <span id="ampm" class="ampm hidden">AM</span>
+    </section>
+
+    <section class="date-display">
+      <p id="day-name">Monday</p>
+      <p id="full-date">January 1, 2025</p>
+    </section>
+
+    <footer class="timezone">
+      <span id="timezone">Local Time</span>
+    </footer>
+  </main>
+
+  
 </body>
 </html>
